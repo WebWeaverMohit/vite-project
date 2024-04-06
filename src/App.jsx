@@ -35,13 +35,13 @@ import { useState } from "react"
 //   )
 // }
 
-const App = () => {
+// const App = () => {
 
-  return (
-    <>  
-    <h1 className="bg-red-500 text-2xl">hello whats up</h1>
-    </>
-  )
+//   return (
+//     <>  
+//     <h1 className="bg-red-500 text-2xl">hello whats up</h1>
+//     </>
+//   )
 
 //   const [username, setusername] = useState("")
 //   const [email, setemail] = useState("")
@@ -81,6 +81,46 @@ const App = () => {
 //       </div>
 //     </>
 //   )
+// }
+
+
+const App = () => {
+  const [tasks, settasks] = useState([
+    { title: "gym", completed: "false" },
+    { title: "breakfast", completed: "false"},
+    {title: "lunch", completed: "true"},
+    { title: "dinner", completed: "true"}
+  ])
+
+  const [title, settitle] = useState("")
+
+  const hehe = tasks.map((task, index) =>(
+    <li key={index}>{task.title}</li>
+  ))
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    const newTask = { title: title, completed: "false" }
+    const copytasks = [...tasks]
+    copytasks.push(newTask)
+    settasks(copytasks)
+    settitle("")
+  }
+  return (
+    <>
+    <form onSubmit={submitHandler} action="" className="mt-3 ml-2 flex gap-4">
+      <input className="bg-black text-xl text-white" type="text" placeholder="Title" onChange={(e)=> settitle(e.target.value)} value={title} />
+      <select className="bg-gray-500 text-xl">
+        <option value="">true</option>
+        <option value="">false</option>
+      </select>
+      <input className="bg-red-600 px-2 py-2" type="submit" />
+    </form>
+    <ul className="list-disc">
+      {hehe}
+    </ul>
+    </>
+  )
 }
 
 export default App
